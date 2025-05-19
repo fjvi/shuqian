@@ -1,0 +1,369 @@
+/* 弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* 半透明背景 */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 居中显示 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-bookmark-file {
+    margin: 20px;
+    padding: 10px 15px; /* 调整内边距 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    font-size: 14px; /* 字体大小 */
+}
+
+#modal-upload-btn {
+    margin: 20px;
+    background-color: #007bff; /* 蓝色背景 */
+    color: #fff; /* 白色文字 */
+    padding: 10px 15px; /* 调整内边距 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    font-size: 14px; /* 字体大小 */
+}
+
+#modal-upload-btn:hover {
+    background-color: #0056b3; /* 鼠标悬停时加深颜色 */
+}
+
+
+/* 框架属性 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    background-image: url(data/bd.jpg);
+    background-attachment: fixed;
+}
+
+body {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: sans-serif;
+    background: #f5f5f5;
+}
+
+/* 顶部栏样式 */
+.top-bar {
+    background-color: #333;
+    color: #ddd;
+    font-size: 1.6rem;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-bar-content {
+    width: 100%;
+    /* 占据整行 */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.title-icon {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.top-bar-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    display: var(--title-display, flex);
+    /* 使用 CSS 变量 */
+}
+
+@media (max-width: 480px) {
+    .top-bar.searching .top-bar-content .top-bar-title span {
+        display: none !important;
+        /* 使用 !important */
+    }
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 居中显示搜索框 */
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.search-box {
+    display: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: none;
+    background: #444;
+    color: white;
+    font-size: 1.2rem;
+    width: 280px;
+    margin: auto 10px;
+    flex-grow: 1;
+    /* 新增：允许扩展 */
+}
+
+/* 底部功能栏 - 保持与一级菜单相同样式 */
+.bottom-bar {
+    background-color: #333;
+    color: #ddd;
+    font-size: 1.2rem;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom-bar button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.bottom-bar button:hover {
+    background-color: #444;
+}
+
+/* 栏目属性 */
+ul.accordion-menu,
+ul.accordion-submenu,
+ul.search-results {
+    /* 新增搜索结果列表样式 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accordion-menu li>a {
+    display: block;
+    padding: 8px 30px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-menu li.open>a.menu-item {
+    font-weight: bold;
+}
+
+.accordion-submenu {
+    display: none;
+}
+
+.accordion-menu li.open>.accordion-submenu {
+    display: block;
+}
+
+/* 隐藏一级菜单栏但保留其子菜单 */
+.accordion-menu>li.level-1>a.menu-item {
+    display: none;
+}
+
+.accordion-menu>li.level-1>.accordion-submenu {
+    display: block;
+    padding-left: 0;
+}
+
+/* 二级菜单 */
+.level-2>a.menu-item {
+    box-sizing: border-box;
+    padding: 10px 30px;
+    background-color: #ddd;
+    border-bottom: 0.5px solid #bbb;
+    font-size: 1.4rem;
+    color: #333;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+}
+
+.level-2>a.menu-item:hover {
+    background-color: #99d3fd;
+    color: #b94152;
+}
+
+/* 三级菜单样式保持不变 */
+.level-3>a.menu-item {
+    padding: 8px 30px;
+    margin: 1px auto;
+    background-color: #ddd;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.level-3>a.menu-item:hover {
+    background-color: #99d3fd;
+    color: #b94152;
+}
+
+/* 四级菜单样式保持不变 */
+.level-4>a.menu-item {
+    padding: 8px 30px;
+    margin: 1px auto;
+    background-color: #ddd;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.level-4>a.menu-item:hover {
+    background-color: #99d3fd;
+    color: #b94152;
+}
+
+/* 展开菜单栏属性 */
+.level-2.open>a {
+    background-color: #b94152;
+    color: #fff;
+    padding: 10px 40px;
+}
+
+.level-3.open>a {
+    background-color: #ffc25a;
+    color: #fff;
+    padding: 10px 40px;
+}
+
+.level-4.open>a {
+    background-color: #ffc25a;
+    color: #fff;
+    padding: 10px 40px;
+}
+
+/* 书签链接样式 */
+a.bookmark-link {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f8f8;
+    color: #0156c5;
+    text-decoration: none;
+    padding: 4px 8px;
+    gap: 8px;
+}
+
+a.bookmark-link:hover {
+    background-color: #99d3fd;
+    border-bottom: 1px solid #bbb;
+    font-size: 1.3rem;
+    color: #b94152;
+	text-decoration:none;
+}
+
+.favicon-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 20px;
+    vertical-align: middle;
+    /* 垂直居中 */
+}
+    /* 复制按钮 */
+/* 普通链接样式 */
+.bookmark-link {
+  color: #007bff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  
+}
+
+.bookmark-link:hover {
+  text-decoration: underline;
+}
+
+/* data:text 样式 */
+.bookmark-data-item {
+  gap: 6px;
+  cursor: default;
+  padding: 10px 10px;
+  border-bottom: 0.5px solid #bbb;
+  white-space: nowrap;  /*强制span不换行*/
+  overflow: hidden;  /*超出宽度部分隐藏*/
+}
+.bookmark-data-item:hover {
+    background-color: #99d3fd;
+    padding: 10px 0;
+}
+
+/* 图标：默认为✄，成功后短暂变 ✅ */
+.copy-symbol {
+  font-size: 16px;
+  color: #999;
+  transition: color 0.3s;
+  width: 16px;
+  height: 16px;
+  margin:0 20px;
+}
+
+.bookmark-data-item.copied .copy-symbol {
+  color: #4CAF50;
+}
+
+/* 可点击文本样式（非链接，但像链接） */
+.copyable {
+  color: #222;
+  font-size: 14px;
+  cursor: text; /* 显示为文本输入光标 */
+  user-select: none;
+}
+
+.copyable:hover {
+  color: #b94152;
+  font-size: 1.4em;
+}
+
+.bookmark-data-item.copied .copyable {
+  color: #4CAF50;
+  font-weight: bold;
+}

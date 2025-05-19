@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookmark</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="container">
+        <div class="top-bar">
+            <div class="top-bar-content">
+                <div class="top-bar-title">
+                    <img src="data/icon.png" class="title-icon" />
+                    <span>Bookmark</span>
+                </div>
+            </div>
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-box" placeholder="搜索书签..." />
+            </div>
+        </div>
+
+        <ul class="accordion-menu" id="bookmarkTree"></ul>
+
+        <form id="password-form" style="display: none; position: absolute; top: -9999px; left: -9999px;">
+            <input type="text" id="fake-username" name="username" value="github_user">
+            <input type="password" id="github-password" name="password">
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="bottom-bar">
+            <button id="export-btn">导出</button>
+            <button id="more-btn">同步</button>
+            <button id="more-settings">设置</button>
+        </div>
+    </div>
+    <script type="module">
+        import { renderBookmarkTree, bindFolderClickEvents, toggleFolder } from './core.js';
+
+        // 异步导入增强功能模块
+        async function loadEnhancements() {
+            try {
+                const { default: Enhancements } = await import('./enhancements.js');
+                Enhancements.init();
+            } catch (error) {
+                console.error("Failed to load enhancements:", error);
+                // 可以选择显示一个错误信息，或者记录日志
+            }
+        }
+
+        // 页面加载完成后执行
+        window.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const response = await fetch("data/bookmarks.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const jsonData = await response.json();
+                const bookmarkTreeData = jsonData?.[0]?.children || [];
+
+                renderBookmarkTree(bookmarkTreeData, document.getElementById("bookmarkTree"));
+
+            } catch (error) {
+                console.error("Failed to fetch or render bookmarks:", error);
+                // 处理错误，例如显示提示信息
+            }
+
+            loadEnhancements(); // 异步加载增强功能
+        });
+    </script>
+</body>
+
+</html>
